@@ -1,0 +1,25 @@
+{
+    "name": "nlo-lang",
+    "displayName": "Nlo Lang",
+    "description": "Syntax highlighting for nlo lang",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.52.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "nlo",
+            "aliases": ["Nlo", "nlo"],
+            "extensions": [".nlo"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "nlo",
+            "scopeName": "source.nlo",
+            "path": "./syntaxes/nlo.tmLanguage.json"
+        }]
+    }
+}
