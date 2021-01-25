@@ -1,71 +1,37 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "Nlo",
+	"scopeName": "source.nlo",
 	"patterns": [
-		{"include": "#comment line"},
-		{"include": "#comment block"},
-		{"include": "#keyword mut"},
-		{"include": "#keyword other"},
-		{
-			"comment": "public keyword",
-			"name": "storage.modifier.visibility.nlo",
-			"match": "\\bpublic\\b"
-		},
-		{
-			"comment": "module related keywords",
-			"name": "keyword.other.module.nlo",
-			"match": "\\b(module|use)\\b"
-		},
-		{
-			"comment": "control flow keywords",
-			"name": "keyword.control.nlo",
-			"match": "\\b(if|else|while|returns|return|restart|exit|function|test|assert)\\b"
-		},
-
-		{
-			"comment": "Floating point literal (fraction)",
-			"name": "constant.numeric.float.nlo",
-			"match": "\\b[0-9][0-9_]*\\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?(float32|float64)?\\b"
-		},
-		{
-			"comment": "Floating point literal (exponent)",
-			"name": "constant.numeric.float.nlo",
-			"match": "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?[eE][+-]?[0-9_]+(float32|float64)?\\b"
-		},
-		{
-			"comment": "Floating point literal (typed)",
-			"name": "constant.numeric.float.nlo",
-			"match": "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?([eE][+-]?[0-9_]+)?(float32|float64)\\b"
-		},
-		{
-			"comment": "Integer literal (decimal)",
-			"name": "constant.numeric.integer.decimal.nlo",
-			"match": "\\b[0-9][0-9_]*([uint](8|16|32|64|128))?\\b"
-		},
-		{
-			"comment": "Integer literal (hexadecimal)",
-			"name": "constant.numeric.integer.hexadecimal.nlo",
-			"match": "\\b0x[a-fA-F0-9_]+([uint](8|16|32|64|128))?\\b"
-		},
-		{
-			"comment": "Integer literal (octal)",
-			"name": "constant.numeric.integer.octal.nlo",
-			"match": "\\b0o[0-7_]+([uint](8|16|32|64|128))?\\b"
-		},
-		{
-			"comment": "Integer literal (binary)",
-			"name": "constant.numeric.integer.binary.nlo",
-			"match": "\\b0b[01_]+([uint](8|16|32|64|128))?\\b"
-		},
-
-		{"include": "#keyword accessor"},
-		{"include": "#keyword assignment"},
-		{"include": "#keyword arithmetic"},
-		{"include": "#keyword comparison"},
+		{"include": "#line comment"},
+		{"include": "#block comment"},
+		
+		{"include": "#floating point literal fraction"},
+		{"include": "#floating point literal exponent"},
+		{"include": "#floating point literal typed"},
+		{"include": "#integer literal decimal"},
+		{"include": "#integer literal hexadecimal"},
+		{"include": "#integer literal octal"},
+		{"include": "#integer literal binary"},
 		{"include": "#strings"},
 		{"include": "#chars"},
 		{"include": "#constant boolean"},
-		{"include": "#type"},
+		
+		{"include": "#public keyword"},
+		{"include": "#mut keyword"},
+		{"include": "#module keywords"},
+		{"include": "#control flow keywords"},
+		{"include": "#accessor keyword"},
+		{"include": "#arithmetic keywords"},
+		{"include": "#comparison keywords"},
+		{"include": "#assignment keyword"},
+		{"include": "#other keyword"},
+
+		{"include": "#signed integer type"},
+		{"include": "#unsigned integer type"},
+		{"include": "#floating point type"},
+		{"include": "#other types"},
+		
 		{
 			"comment": "function call",
 			"match": "\\b([A-Za-z][A-Za-z0-9_]*|_[A-Za-z0-9_]+)\\s*\\(",
@@ -77,52 +43,55 @@
 		}
 	],
 	
-	
-	
 	"repository": {
-		"comment line": {
+		"line comment": {
 			"name": "comment.line.nlo",
 			"begin": "//",
 			"end": "$"
 		},
-		
-		"comment block": {
+		"block comment": {
 			"name": "comment.block.nlo",
 			"begin": "/\\*",
 			"end": "\\*/"
 		},
 
-		"keyword mut": {
-			"comment": "mutable keyword",
-			"name": "storage.modifier.mutable.nlo",
-			"match": "mut"
-		},
+
 		
-		"keyword other": {
-			"name": "keyword.other.nlo",
-			"match": "\\b(ref|deref|copy)\\b"
+		"floating point literal fraction": {
+			"comment": "Floating point literal (fraction)",
+			"name": "constant.numeric.float.nlo",
+			"match": "\\b[0-9][0-9_]*\\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?(float32|float64)?\\b"
 		},
-
-		"keyword accessor": {
-			"name": "keyword.operator.accessor.nlo",
-			"match": ":"
+		"floating point literal exponent": {
+			"comment": "Floating point literal (exponent)",
+			"name": "constant.numeric.float.nlo",
+			"match": "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?[eE][+-]?[0-9_]+(float32|float64)?\\b"
 		},
-
-		"keyword assignment": {
-			"name": "keyword.operator.assignment.nlo",
-			"match": "="
+		"floating point literal typed": {
+			"comment": "Floating point literal (typed)",
+			"name": "constant.numeric.float.nlo",
+			"match": "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?([eE][+-]?[0-9_]+)?(float32|float64)\\b"
 		},
-
-		"keyword arithmetic": {
-			"name": "keyword.operator.arithmetic.nlo",
-			"match": "(\\+|-|/|\\*|%)"
+		"integer literal decimal": {
+			"comment": "Integer literal (decimal)",
+			"name": "constant.numeric.integer.decimal.nlo",
+			"match": "\\b[0-9][0-9_]*([uint](8|16|32|64|128))?\\b"
 		},
-
-		"keyword comparison": {
-			"name": "keyword.operator.comparison.nlo",
-			"match": "(<=|>=|<|>|==|not=|is|not|and|or)"
+		"integer literal hexadecimal": {
+			"comment": "Integer literal (hexadecimal)",
+			"name": "constant.numeric.integer.hexadecimal.nlo",
+			"match": "\\b0x[a-fA-F0-9_]+([uint](8|16|32|64|128))?\\b"
 		},
-		
+		"integer literal octal": {
+			"comment": "Integer literal (octal)",
+			"name": "constant.numeric.integer.octal.nlo",
+			"match": "\\b0o[0-7_]+([uint](8|16|32|64|128))?\\b"
+		},
+		"integer literal binary": {
+			"comment": "Integer literal (binary)",
+			"name": "constant.numeric.integer.binary.nlo",
+			"match": "\\b0b[01_]+([uint](8|16|32|64|128))?\\b"
+		},
 		"strings": {
 			"name": "string.quoted.double.nlo",
 			"begin": "\"",
@@ -135,7 +104,6 @@
 				}
 			]
 		},
-		
 		"chars": {
 			"name": "string.quoted.single",
 			"begin": "\\'",
@@ -148,38 +116,75 @@
 				}
 			]
 		},
-		
 		"constant boolean": {
 			"name": "constant.language.boolean.nlo",
 			"match": "\\b(true|false)\\b"
 		},
 
-		"type": {
-			"patterns": [
-				{
-					"comment": "built in signed integer types",
-					"name": "storage.type.integer.signed.nlo",
-					"match": "\\b(int8|int16|int32|int64|int128)\\b"
-				},
-				{
-					"comment": "built in unsigned integer types",
-					"name": "storage.type.integer.unsigned.nlo",
-					"match": "\\b(uint8|uint16|uint32|uint64|uint128)\\b"
-				},
-				{
-					"comment": "built in floating point types",
-					"name": "storage.type.float.nlo",
-					"match": "\\b(float32|float64)\\b"
-				},
-				{
-					"comment": "other types",
-					"name": "storage.type.other.nlo",
-					"match": "\\b(bool|char|struct|enum|generic)\\b"
-				}
-			]
+
+
+		"public keyword": {
+			"comment": "public keyword",
+			"name": "storage.modifier.visibility.nlo",
+			"match": "\\bpublic\\b"
+		},
+		"mut keyword": {
+			"comment": "mutable keyword",
+			"name": "storage.modifier.mutable.nlo",
+			"match": "mut"
+		},
+		"module keywords": {
+			"comment": "module related keywords",
+			"name": "keyword.other.module.nlo",
+			"match": "\\b(module|use)\\b"
+		},
+		"control flow keywords": {
+			"comment": "control flow keywords",
+			"name": "keyword.control.nlo",
+			"match": "\\b(if|else|while|returns|return|restart|exit|assert)\\b"
+		},
+		"accessor keyword": {
+			"name": "keyword.operator.accessor.nlo",
+			"match": ":"
+		},
+		"arithmetic keywords": {
+			"name": "keyword.operator.arithmetic.nlo",
+			"match": "(\\+|-|/|\\*|%)"
+		},
+		"comparison keywords": {
+			"name": "keyword.operator.comparison.nlo",
+			"match": "(<=|>=|<|>|==|not=|is|not|and|or)"
+		},
+		"assignment keyword": {
+			"name": "keyword.operator.assignment.nlo",
+			"match": "="
+		},
+		"other keyword": {
+			"name": "keyword.other.nlo",
+			"match": "\\b(ref|deref|copy)\\b"
+		},
+
+
+
+		"signed integer type": {
+			"comment": "built in signed integer types",
+			"name": "storage.type.integer.signed.nlo",
+			"match": "\\b(int8|int16|int32|int64|int128)\\b"
+		},
+		"unsigned integer type": {
+			"comment": "built in unsigned integer types",
+			"name": "storage.type.integer.unsigned.nlo",
+			"match": "\\b(uint8|uint16|uint32|uint64|uint128)\\b"
+		},
+		"floating point type": {
+			"comment": "built in floating point types",
+			"name": "storage.type.float.nlo",
+			"match": "\\b(float32|float64)\\b"
+		},
+		"other types": {
+			"comment": "other types",
+			"name": "storage.type.other.nlo",
+			"match": "\\b(bool|char|struct|enum|generic)\\b"
 		}
-	},
-	
-	
-	"scopeName": "source.nlo"
+	}
 }
