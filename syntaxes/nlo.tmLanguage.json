@@ -6,14 +6,44 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#control keywords"
+		},
+		{
+			"include": "#operator keywords"
+		},
+		{
 			"include": "#strings"
+		},
+		{
+			"include": "#boolean constant"
+		},
+		{
+			"include": "#type"
+		},
+		{
+			"include": "#line comment"
+		},
+		{
+			"include": "#block comment"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
+				"name": "keyword.other.nlo",
+				"match": "\\b(public|mut|ref|deref|copy)\\b"
+			}]
+		},
+		"control keywords": {
+			"patterns": [{
 				"name": "keyword.control.nlo",
-				"match": "\\b(if|while|for|return)\\b"
+				"match": "\\b(if|else|while|returns|return|module|function|test|assert|use)\\b"
+			}]
+		},
+		"operator keywords": {
+			"patterns": [{
+				"name": "keyword.nlo",
+				"match": "\\b(not|and|or|is)\\b"
 			}]
 		},
 		"strings": {
@@ -26,6 +56,32 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"boolean constant": {
+			"patterns": [{
+				"name": "constant.language.boolean.nlo",
+				"match": "\\b(true|false)\\b"
+			}]
+		},
+		"type": {
+			"patterns": [{
+				"name": "storage.type.nlo",
+				"match": "\\b(int8|int16|int32|int64|int128|uint8|uint16|uint32|uint64|uint128|float32|float64|bool|char|struct|enum)\\b"
+			}]
+		},
+		"line comment": {
+			"patterns": [{
+					"name": "comment.line.nlo",
+					"begin": "//",
+					"end": "$"
+			}]
+		},
+		"block comment": {
+			"patterns": [{
+				"name": "comment.block.nlo",
+				"begin": "/\\*",
+				"end": "\\*/"
+			}]
 		}
 	},
 	"scopeName": "source.nlo"
