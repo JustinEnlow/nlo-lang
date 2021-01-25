@@ -4,31 +4,66 @@
 	"patterns": [
 		{"include": "#comment line"},
 		{"include": "#comment block"},
-		{
-			"name": "keyword.other.nlo",
-			"match": "\\b(mut|ref|deref|copy)\\b"
-		},
+		{"include": "#keyword other"},
 		{
 			"comment": "public keyword",
 			"name": "storage.modifier.visibility.nlo",
 			"match": "\\bpublic\\b"
 		},
 		{
+			"comment": "module related keywords",
+			"name": "keyword.other.module.nlo",
+			"match": "\\b(module|use)\\b"
+		},
+		{
 			"comment": "control flow keywords",
 			"name": "keyword.control.nlo",
-			"match": "\\b(if|else|while|returns|return|module|function|test|assert|use)\\b"
+			"match": "\\b(if|else|while|returns|return|restart|exit|function|test|assert)\\b"
+		},
+
+		{
+			"comment": "Floating point literal (fraction)",
+			"name": "constant.numeric.float.nlo",
+			"match": "\\b[0-9][0-9_]*\\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?(float32|float64)?\\b"
 		},
 		{
-			"comment": "operator keywords",
-			"name": "keyword.nlo",
-			"match": "\\b(not|and|or|is)\\b"
+			"comment": "Floating point literal (exponent)",
+			"name": "constant.numeric.float.nlo",
+			"match": "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?[eE][+-]?[0-9_]+(float32|float64)?\\b"
 		},
+		{
+			"comment": "Floating point literal (typed)",
+			"name": "constant.numeric.float.nlo",
+			"match": "\\b[0-9][0-9_]*(\\.[0-9][0-9_]*)?([eE][+-]?[0-9_]+)?(float32|float64)\\b"
+		},
+		{
+			"comment": "Integer literal (decimal)",
+			"name": "constant.numeric.integer.decimal.nlo",
+			"match": "\\b[0-9][0-9_]*([uint](8|16|32|64|128))?\\b"
+		},
+		{
+			"comment": "Integer literal (hexadecimal)",
+			"name": "constant.numeric.integer.hexadecimal.nlo",
+			"match": "\\b0x[a-fA-F0-9_]+([uint](8|16|32|64|128))?\\b"
+		},
+		{
+			"comment": "Integer literal (octal)",
+			"name": "constant.numeric.integer.octal.nlo",
+			"match": "\\b0o[0-7_]+([uint](8|16|32|64|128))?\\b"
+		},
+		{
+			"comment": "Integer literal (binary)",
+			"name": "constant.numeric.integer.binary.nlo",
+			"match": "\\b0b[01_]+([uint](8|16|32|64|128))?\\b"
+		},
+
+		{"include": "#keyword accessor"},
+		{"include": "#keyword assignment"},
+		{"include": "#keyword arithmetic"},
+		{"include": "#keyword comparison"},
 		{"include": "#strings"},
 		{"include": "#chars"},
-		{
-			"name": "constant.language.boolean.nlo",
-			"match": "\\b(true|false)\\b"
-		},
+		{"include": "#constant boolean"},
 		{"include": "#type"},
 		{
 			"comment": "function call",
@@ -49,11 +84,38 @@
 			"begin": "//",
 			"end": "$"
 		},
+		
 		"comment block": {
 			"name": "comment.block.nlo",
 			"begin": "/\\*",
 			"end": "\\*/"
 		},
+		
+		"keyword other": {
+			"name": "keyword.other.nlo",
+			"match": "\\b(mut|ref|deref|copy)\\b"
+		},
+
+		"keyword accessor": {
+			"name": "keyword.operator.accessor.nlo",
+			"match": ":"
+		},
+
+		"keyword assignment": {
+			"name": "keyword.operator.assignment.nlo",
+			"match": "="
+		},
+
+		"keyword arithmetic": {
+			"name": "keyword.operator.arithmetic.nlo",
+			"match": "(\\+|-|/|\\*|%)"
+		},
+
+		"keyword comparison": {
+			"name": "keyword.operator.comparison.nlo",
+			"match": "(<=|>=|<|>|==|not=|is|not|and|or)"
+		},
+		
 		"strings": {
 			"name": "string.quoted.double.nlo",
 			"begin": "\"",
@@ -66,6 +128,7 @@
 				}
 			]
 		},
+		
 		"chars": {
 			"name": "string.quoted.single",
 			"begin": "\\'",
@@ -78,14 +141,23 @@
 				}
 			]
 		},
+		
+		"constant boolean": {
+			"name": "constant.language.boolean.nlo",
+			"match": "\\b(true|false)\\b"
+		},
+
 		"type": {
 			"patterns": [
 				{
+					"comment": "built in language data types",
 					"name": "storage.type.nlo",
 					"match": "\\b(int8|int16|int32|int64|int128|uint8|uint16|uint32|uint64|uint128|float32|float64|bool|char|struct|enum|generic)\\b"
 				}
 			]
 		}
 	},
+	
+	
 	"scopeName": "source.nlo"
 }
