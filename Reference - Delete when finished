@@ -1,0 +1,28 @@
+end statement               keyword.control.end.nlo                 purple(testing only) tbd(prod)
+accessor                    keyword.operator.accessor.nlo           no color
+assign operator             keyword.operator.assignment.nlo         no color
+
+parenthesis                 punctuation.parenthesis.nlo             no color
+curly bracket               punctuation.bracket.curly.nlo           no color
+square bracket              punctuation.bracket.square.nlo          no color
+
+module ident                entity.name.type.module.nlo             bluegreen
+function ident              entity.name.function.nlo                yellow
+
+
+int type                    storage.type.integer.signed.nlo         dark blue
+uint type                   storage.type.integer.unsigned.nlo       dark blue
+float type                  storage.type.float.nlo                  dark blue
+
+
+int ident                   variable.name.integer.signed.nlo        light blue
+uint ident                  variable.name.integer.unsigned.nlo      light blue
+float ident                 variable.name.float.nlo                 light blue
+
+public keyword              storage.modifier.visibility.nlo         dark blue
+mut keyword                 storage.modifier.mutable.nlo            dark blue
+function keyword            keyword.other.function.nlo              dark blue(testing) purple(prod)
+control keywords            keyword.control.nlo                     purple
+math symbols                keyword.operator.arithmetic.nlo         no color
+comparison syms/keys        keyword.operator.comparison.nlo         no color(testing) tbd(prod)
+other/ownership keys        keyword.other.nlo                       dark blue
