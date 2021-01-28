@@ -204,14 +204,15 @@
 				},
 				{
 					"comment": "",
-					"match": "\\b(?:(module)|(use)|(function)|(ref)|(deref)|(copy))\\b",
+					"match": "\\b(?:(module)|(use)|(function)|(test)|(ref)|(deref)|(copy))\\b",
 					"captures": {
 						"1": {"name": "keyword.other.module.nlo"},
 						"2": {"name": "keyword.other.use.nlo"},
 						"3": {"name": "keyword.other.function.nlo"},
-						"4": {"name": "keyword.other.ref.nlo"},
-						"5": {"name": "keyword.other.deref.nlo"},
-						"6": {"name": "keyword.other.copy.nlo"}
+						"4": {"name": "keyword.other.test.nlo"},
+						"5": {"name": "keyword.other.ref.nlo"},
+						"6": {"name": "keyword.other.deref.nlo"},
+						"7": {"name": "keyword.other.copy.nlo"}
 					}
 				},
 				{
