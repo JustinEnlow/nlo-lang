@@ -3,165 +3,265 @@
 	"name": "Nlo",
 	"scopeName": "source.nlo",
 	"patterns": [
-		{"include": "#line comment"},
-		{"include": "#block comment"},
-		
 		{
-			"comment": "use module declaration",
-			"begin": "\\b(use)\\b\\s+(?:([A-Z][a-zA-Z]*)(?=\\:)(\\:?))*([A-Z][a-zA-Z]*)(\\.)",
-			"beginCaptures": {
-				"1": {"name": "keyword.other.use.nlo"},
-				"2": {"name": "entity.name.type.module.nlo"},
-				"3": {"name": "keyword.operator.accessor.nlo"},
-				"4": {"name": "entity.name.type.module.nlo"},
-				"5": {"name": "keyword.control.end.nlo"}
-			},
-			"end": "(\\.)",
-			"endCaptures": {
-				"1": {"name": "keyword.control.end.nlo"}
-			}
-		},
-
-		{
-			"comment": "signed integer declaration without value assignment",
-			"match": "\\b(int8|int16|int32|int64|int128)\\s+([a-z0-9_][a-zA-z0-9_]*)(\\.)",
+			"comment": "struct declaration",
+			"match": "\\b(struct)\\b\\s+([A-Z][a-zA-Z]*)(\\{)",
 			"captures": {
-				"1": {"name": "storage.type.integer.signed.nlo"},
-				"2": {"name": "variable.name.integer.signed.nlo"},
-				"3": {"name": "keyword.control.end.nlo"}
+				"1": {"name": "storage.type.struct.nlo"},
+				"2": {"name": "entity.name.type.struct.nlo"},
+				"3": {"name": "punctuation.bracket.curly.open.nlo"}
 			}
 		},
-
 		{
-			"comment": "function call",
-			"begin": "([A-Z][a-zA-Z]*)(\\()",
-			"beginCaptures": {
-				"1": {"name": "entity.name.function.nlo"},
-				"2": {"name": "punctuation.parenthesis.nlo"}
-			},
-			"end": "(\\))(\\.)",
-			"endCaptures": {
-				"1": {"name": "punctuation.parenthesis.nlo"},
-				"2": {"name": "keyword.control.end.nlo"}
-			},
-			"patterns": [
-				{"include": "#line comment"},
-				{"include": "#block comment"},
-				{"include": "#strings"}
-			]
+			"comment": "named struct definition",
+			"match": "\\b([A-Z][a-zA-Z]*)\\s([a-z][a-zA-Z]*)\\s(=)\\s([A-Z][a-zA-Z]*)({)",
+			"captures": {
+				"1": {"name": "entity.name.type.struct.nlo"},
+				"2": {"name": "variable.name.nlo"},
+				"3": {"name": "keyword.operator.assignment.nlo"},
+				"4": {"name": "entity.name.type.struct.nlo"},
+				"5": {"name": "punctuation.bracket.curly.open.nlo"}
+			}
 		},
-
-		
 		{
-			"comment": "function declaration",
-			"begin": "\\b(function|test)\\s+([A-Z][a-zA-Z]*)",
-			"beginCaptures": {
-				"1": {"name": "keyword.other.function.nlo"},
-				"2": {"name": "entity.name.function.nlo"}
-			},
-			"end": "\\("
+			"comment": "enum declaration",
+			"match": "\\b(enum)\\b\\s([A-Z][a-zA-Z]*)(\\{)",
+			"captures": {
+				"1": {"name": "storage.type.enum.nlo"},
+				"2": {"name": "entity.name.type.enum.nlo"},
+				"3": {"name": "punctuation.bracket.curly.open.nlo"}
+			}
 		},
-
-
-		{"include": "#floating point literal"},
-		{"include": "#integer literal"},
-		{"include": "#string literal"},
-		{"include": "#char literal"},
-		{"include": "#boolean literal"},
+		{
+			"comment": "named enum definition",
+			"match": "\\b([A-Z][a-zA-Z]*)\\b\\s([a-z][a-zA-Z]*)\\s(=)\\s([A-Z][a-zA-Z]*)(:)([a-z][a-zA-Z0-9]*)",
+			"captures": {
+				"1": {"name": "entity.name.type.enum.nlo"},
+				"2": {"name": "variable.name.nlo"},
+				"3": {"name": "keyword.operator.assignment.nlo"},
+				"4": {"name": "entity.name.type.enum.nlo"},
+				"5": {"name": "keyword.operator.accessor.nlo"},
+				"6": {"name": "variable.name.enumValue.nlo"}
+			}
+		},
+		{
+			"comment": "enum value",
+			"match": "\\b([A-Z][a-zA-Z]*)(:)([a-z][a-zA-Z0-9]*)",
+			"captures": {
+				"1": {"name": "entity.name.type.enum.nlo"},
+				"2": {"name": "keyword.operator.accessor.nlo"},
+				"3": {"name": "variable.name.enumValue.nlo"}
+			}
+		},
+		{"include": "#comments"},
+		{"include": "#keywords"},
+		{"include": "#data type"},
+		{"include": "#identifiers"},
 		
-		{"include": "#public keyword"},
-		{"include": "#mut keyword"},
-		{"include": "#control flow keywords"},
-		{"include": "#arithmetic keywords"},
-		{"include": "#comparison keywords"},
-		{"include": "#assignment keyword"},
-		{"include": "#other keyword"}
+		{"include": "#literals"},
+		{
+			"comment": "brackets",
+			"match": "(?:(\\()|(\\))|(\\{)|(\\})|(\\[)|(\\]))",
+			"captures": {
+				"1": {"name": "punctuation.parenthesis.open.nlo"},
+				"2": {"name": "punctuation.parenthesis.close.nlo"},
+				"3": {"name": "punctuation.bracket.curly.open.nlo"},
+				"4": {"name": "punctuation.bracket.curly.close.nlo"},
+				"5": {"name": "punctuation.bracket.square.open.nlo"},
+				"6": {"name": "punctuation.bracket.square.close.nlo"}
+			}
+		}
 	],
 	
 	"repository": {
-		"line comment": {
-			"name": "comment.line.nlo",
-			"begin": "//",
-			"end": "$"
-		},
-		"block comment": {
-			"name": "comment.block.nlo",
-			"begin": "/\\*",
-			"end": "\\*/"
-		},
-
-
-		"floating point literal": {
-			"comment": "floating point literal",
-			"name": "constant.numeric.float.nlo",
-			"match": "\\b[0-9]+\\.[0-9]+\\b"
-		},
-		"integer literal": {
-			"comment": "integer literal",
-			"name": "constant.numeric.integer.nlo",
-			"match": "\\b[0-9]+\\b"
-		},
-		"string literal": {
-			"name": "string.quoted.double.nlo",
-			"begin": "\"",
-			"end": "\"",
+		
+		"comments": {
 			"patterns": [
 				{
-					"comment": "content between quotation marks",
-					"name": "constant.character.escape.nlo",
-					"match": "\\\\."
+					"comment": "line comment",
+					"begin": "//",
+					"end": "$",
+					"name": "comment.line.nlo"
+				},
+				{
+					"comment": "block comment",
+					"begin": "/\\*",
+					"end": "\\*/",
+					"name": "comment.block.nlo"
 				}
 			]
 		},
-		"char literal": {
-			"name": "string.quoted.single",
-			"begin": "\\'",
-			"end": "\\'",
+
+		"identifiers": {
 			"patterns": [
 				{
-					"comment": "content between single quotation marks",
-					"name": "constant.character.escape.nlo",
-					"match": "\\\\."
+					"comment": "module identifier",
+					"match": "\\b([A-Z][a-zA-Z]*)\\b(?:(\\:)|(\\.)|(\\{))",
+					"captures": {
+						"1": {"name": "entity.name.type.module.nlo"},
+						"2": {"name": "keyword.operator.accessor.nlo"},
+						"3": {"name": "keyword.control.end.nlo"},
+						"4": {"name": "punctuation.bracket.curly.open.nlo"}
+					}
+				},
+				{
+					"comment": "function identifier",
+					"match": "\\b([A-Z][a-zA-Z]*)\\b(\\()",
+					"captures": {
+						"1": {"name": "entity.name.function.nlo"},
+						"2": {"name": "punctuation.parenthesis.open.nlo"}
+					}
+				},
+				{
+					"comment": "variable identifier",
+					"match": "\\b([a-z][a-zA-Z0-9]*)\\b",
+					"captures": {
+						"1": {"name": "variable.name.nlo"}
+					}
 				}
 			]
 		},
-		"boolean literal": {
-			"name": "constant.language.boolean.nlo",
-			"match": "\\b(true|false)\\b"
+
+		"data type": {
+			"comment": "type",
+			"match": "\\b(?:(int8)|(int16)|(int32)|(int64)|(int128)|(uint8)|(uint16)|(uint32)|(uint64)|(uint128)|(float32)|(float64)|(bool)|(char)|(struct)|(enum)|(generic))\\b",
+			"captures": {
+				"1": {"name": "storage.type.integer.signed.8.nlo"},
+				"2": {"name": "storage.type.integer.signed.16.nlo"},
+				"3": {"name": "storage.type.integer.signed.32.nlo"},
+				"4": {"name": "storage.type.integer.signed.64.nlo"},
+				"5": {"name": "storage.type.integer.signed.128.nlo"},
+				"6": {"name": "storage.type.integer.unsigned.8.nlo"},
+				"7": {"name": "storage.type.integer.unsigned.16.nlo"},
+				"8": {"name": "storage.type.integer.unsigned.32.nlo"},
+				"9": {"name": "storage.type.integer.unsigned.64.nlo"},
+				"10": {"name": "storage.type.integer.unsigned.128.nlo"},
+				"11": {"name": "storage.type.float.32.nlo"},
+				"12": {"name": "storage.type.float.64.nlo"},
+				"13": {"name": "storage.type.bool.nlo"},
+				"14": {"name": "storage.type.char.nlo"},
+				"15": {"name": "storage.type.struct.nlo"},
+				"16": {"name": "storage.type.enum.nlo"},
+				"17": {"name": "storage.type.generic.nlo"}
+			}
 		},
 
+		"literals": {
+			"patterns": [
+				{
+					"comment": "floating point literal",
+					"name": "constant.numeric.float.nlo",
+					"match": "\\b[0-9]+\\.[0-9]+\\b"
+				},
+				{
+					"comment": "integer literal",
+					"name": "constant.numeric.integer.nlo",
+					"match": "\\b[0-9]+\\b"
+				},
+				{
+					"comment": "string literal",
+					"name": "string.quoted.double.nlo",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"comment": "content between quotation marks",
+							"name": "constant.character.escape.nlo",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"comment": "char literal",
+					"name": "string.quoted.single",
+					"begin": "\\'",
+					"end": "\\'",
+					"patterns": [
+						{
+							"comment": "content between single quotation marks",
+							"name": "constant.character.escape.nlo",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"comment": "bool literal",
+					"name": "constant.language.boolean.nlo",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
 
-
-		"public keyword": {
-			"comment": "public keyword",
-			"name": "storage.modifier.visibility.nlo",
-			"match": "\\bpublic\\b"
-		},
-		"mut keyword": {
-			"comment": "mutable keyword",
-			"name": "storage.modifier.mutable.nlo",
-			"match": "mut"
-		},
-		"control flow keywords": {
-			"comment": "control flow keywords",
-			"name": "keyword.control.nlo",
-			"match": "\\b(if|else|while|returns|return|restart|exit|assert)\\b"
-		},
-		"arithmetic keywords": {
-			"name": "keyword.operator.arithmetic.nlo",
-			"match": "(\\+|-|/|\\*|%)"
-		},
-		"comparison keywords": {
-			"name": "keyword.operator.comparison.nlo",
-			"match": "(<=|>=|<|>|==|not=|is|not|and|or)"
-		},
-		"assignment keyword": {
-			"name": "keyword.operator.assignment.nlo",
-			"match": "="
-		},
-		"other keyword": {
-			"name": "keyword.other.nlo",
-			"match": "\\b(ref|deref|copy)\\b"
+		"keywords": {
+			"patterns": [
+				{
+					"comment": "public and mut keywords",
+					"match": "\\b(?:(public)|(mut))\\b",
+					"captures": {
+						"1": {"name": "storage.modifier.public.nlo"},
+						"2": {"name": "storage.modifier.mutable.nlo"}
+					}
+				},
+				{
+					"comment": "",
+					"match": "\\b(?:(module)|(use)|(function)|(ref)|(deref)|(copy))\\b",
+					"captures": {
+						"1": {"name": "keyword.other.module.nlo"},
+						"2": {"name": "keyword.other.use.nlo"},
+						"3": {"name": "keyword.other.function.nlo"},
+						"4": {"name": "keyword.other.ref.nlo"},
+						"5": {"name": "keyword.other.deref.nlo"},
+						"6": {"name": "keyword.other.copy.nlo"}
+					}
+				},
+				{
+					"comment": "control flow keywords",
+					"name": "keyword.control.nlo",
+					"match": "\\b(if|else|while|returns|return|restart|exit|assert)\\b"
+				},
+				{
+					"comment": "arithmetic keywords",
+					"match": "(?:(\\+)|(\\-)|(\\/)|(\\*)|(\\%))",
+					"captures": {
+						"1": {"name": "keyword.operator.arithmetic.add.nlo"},
+						"2": {"name": "keyword.operator.arithmetic.subtract.nlo"},
+						"3": {"name": "keyword.operator.arithmetic.divide.nlo"},
+						"4": {"name": "keyword.operator.arithmetic.multiply.nlo"},
+						"5": {"name": "keyword.operator.arithmetic.modulo.nlo"}
+					}
+				},
+				{
+					"comment": "comparison keywords",
+					"match": "(?:(<=)|(>=)|(<)|(>)|(==)|(\\bnot\\b=)|\\b(is)\\b|\\b(not)\\b|\\b(and)\\b|\\b(or)\\b)",
+					"captures": {
+						"1": {"name": "keyword.operator.comparison.lessThanEqualTo.nlo"},
+						"2": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
+						"3": {"name": "keyword.operator.comparison.lessThan.nlo"},
+						"4": {"name": "keyword.operator.comparison.greaterThan.nlo"},
+						"5": {"name": "keyword.operator.comparison.equalTo.nlo"},
+						"6": {"name": "keyword.operator.comparison.notEqual.nlo"},
+						"7": {"name": "keyword.operator.comparison.is.nlo"},
+						"8": {"name": "keyword.operator.comparison.not.nlo"},
+						"9": {"name": "keyword.operator.comparison.and.nlo"},
+						"10": {"name": "keyword.operator.comparison.or.nlo"}
+					}
+				},
+				{
+					"comment": "assignment keyword",
+					"name": "keyword.operator.assignment.nlo",
+					"match": "="
+				},
+				{
+					"comment": "accessor keyword",
+					"match": "\\:",
+					"name": "keyword.operator.accessor.nlo"
+				},
+				{
+					"comment": "end statement keyword",
+					"match": "\\.",
+					"name": "keyword.control.end.nlo"
+				}
+			]
 		}
 	}
 }
