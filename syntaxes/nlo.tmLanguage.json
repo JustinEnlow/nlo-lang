@@ -56,9 +56,9 @@
 		{"include": "#comments"},
 		{"include": "#keywords"},
 		{"include": "#data type"},
+		{"include": "#literals"},
 		{"include": "#identifiers"},
 		
-		{"include": "#literals"},
 		{
 			"comment": "brackets",
 			"match": "(?:(\\()|(\\))|(\\{)|(\\})|(\\[)|(\\]))",
@@ -124,7 +124,7 @@
 
 		"data type": {
 			"comment": "type",
-			"match": "\\b(?:(int8)|(int16)|(int32)|(int64)|(int128)|(uint8)|(uint16)|(uint32)|(uint64)|(uint128)|(float32)|(float64)|(bool)|(char)|(struct)|(enum)|(generic))\\b",
+			"match": "\\b(int8|int16|int32|int64|int128|uint8|uint16|uint32|uint64|uint128|float32|float64|bool|char|struct|enum|generic)\\b",
 			"captures": {
 				"1": {"name": "storage.type.integer.signed.8.nlo"},
 				"2": {"name": "storage.type.integer.signed.16.nlo"},
@@ -195,16 +195,8 @@
 		"keywords": {
 			"patterns": [
 				{
-					"comment": "public and mut keywords",
-					"match": "\\b(?:(public)|(mut))\\b",
-					"captures": {
-						"1": {"name": "storage.modifier.public.nlo"},
-						"2": {"name": "storage.modifier.mutable.nlo"}
-					}
-				},
-				{
 					"comment": "",
-					"match": "\\b(?:(module)|(use)|(function)|(test)|(ref)|(deref)|(copy))\\b",
+					"match": "\\b(module|use|function|test|ref|deref|copy|public|mut)\\b",
 					"captures": {
 						"1": {"name": "keyword.other.module.nlo"},
 						"2": {"name": "keyword.other.use.nlo"},
@@ -233,18 +225,26 @@
 				},
 				{
 					"comment": "comparison keywords",
-					"match": "(?:(<=)|(>=)|(<)|(>)|(==)|(\\bnot\\b=)|\\b(is)\\b|\\b(not)\\b|\\b(and)\\b|\\b(or)\\b)",
+					"match": "(<=|≤|>=|≥|<|>|==|\\bnot\\b=|≠)",
 					"captures": {
 						"1": {"name": "keyword.operator.comparison.lessThanEqualTo.nlo"},
-						"2": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
-						"3": {"name": "keyword.operator.comparison.lessThan.nlo"},
-						"4": {"name": "keyword.operator.comparison.greaterThan.nlo"},
-						"5": {"name": "keyword.operator.comparison.equalTo.nlo"},
-						"6": {"name": "keyword.operator.comparison.notEqual.nlo"},
-						"7": {"name": "keyword.operator.comparison.is.nlo"},
-						"8": {"name": "keyword.operator.comparison.not.nlo"},
-						"9": {"name": "keyword.operator.comparison.and.nlo"},
-						"10": {"name": "keyword.operator.comparison.or.nlo"}
+						"2": {"name": "keyword.operator.comparison.lessThanEqualTo.nlo"},
+						"3": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
+						"4": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
+						"5": {"name": "keyword.operator.comparison.lessThan.nlo"},
+						"6": {"name": "keyword.operator.comparison.greaterThan.nlo"},
+						"7": {"name": "keyword.operator.comparison.equalTo.nlo"},
+						"8": {"name": "keyword.operator.comparison.notEqual.nlo"},
+						"9": {"name": "keyword.operator.comparison.notEqual.nlo"}
+					}
+				},
+				{
+					"comment": "logical keywords",
+					"match": "\\b(and|or|not)\\b",
+					"captures": {
+						"1": {"name": "keyword.operator.logical.and.nlo"},
+						"2": {"name": "keyword.operator.logical.or.nlo"},
+						"3": {"name": "keyword.operator.logical.not.nlo"}
 					}
 				},
 				{
