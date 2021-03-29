@@ -34,7 +34,7 @@
 			"patterns": [
 				{
 					"comment": "",
-					"match": "\\b(module|use|function|test|ref|deref|copy|public|mut)\\b",
+					"match": "\\b(module|use|function|test|ref|deref|copy|public|mutable)\\b",
 					"captures": {
 						"1": {"name": "keyword.other.module.nlo"},
 						"2": {"name": "keyword.other.use.nlo"},
@@ -48,7 +48,7 @@
 				{
 					"comment": "control flow keywords",
 					"name": "keyword.control.nlo",
-					"match": "\\b(if|else|while|returns|return|restart|exit|assert)\\b"
+					"match": "\\b(if|else|while|returns|return|restart|exit|assert|for each|in)\\b"
 				},
 				{
 					"comment": "arithmetic keywords",
@@ -63,17 +63,14 @@
 				},
 				{
 					"comment": "comparison keywords",
-					"match": "(<=|≤|>=|≥|<|>|==|\\bnot\\b=|≠)",
+					"match": "(<=|>=|<|>|==|=/=)",
 					"captures": {
 						"1": {"name": "keyword.operator.comparison.lessThanEqualTo.nlo"},
-						"2": {"name": "keyword.operator.comparison.lessThanEqualTo.nlo"},
-						"3": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
-						"4": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
-						"5": {"name": "keyword.operator.comparison.lessThan.nlo"},
-						"6": {"name": "keyword.operator.comparison.greaterThan.nlo"},
-						"7": {"name": "keyword.operator.comparison.equalTo.nlo"},
-						"8": {"name": "keyword.operator.comparison.notEqual.nlo"},
-						"9": {"name": "keyword.operator.comparison.notEqual.nlo"}
+						"2": {"name": "keyword.operator.comparison.greaterThanEqualTo.nlo"},
+						"3": {"name": "keyword.operator.comparison.lessThan.nlo"},
+						"4": {"name": "keyword.operator.comparison.greaterThan.nlo"},
+						"5": {"name": "keyword.operator.comparison.equalTo.nlo"},
+						"6": {"name": "keyword.operator.comparison.notEqual.nlo"}
 					}
 				},
 				{
@@ -105,7 +102,7 @@
 
 		"data type": {
 			"comment": "type",
-			"match": "\\b(int8|int16|int32|int64|int128|uint8|uint16|uint32|uint64|uint128|float32|float64|bool|char|struct|enum|generic)\\b",
+			"match": "\\b(int8|int16|int32|int64|int128|uint8|uint16|uint32|uint64|uint128|float32|float64|bool|char|struct|enum|generic|pointer)\\b",
 			"captures": {
 				"1": {"name": "storage.type.integer.signed.8.nlo"},
 				"2": {"name": "storage.type.integer.signed.16.nlo"},
@@ -123,7 +120,8 @@
 				"14": {"name": "storage.type.char.nlo"},
 				"15": {"name": "storage.type.struct.nlo"},
 				"16": {"name": "storage.type.enum.nlo"},
-				"17": {"name": "storage.type.generic.nlo"}
+				"17": {"name": "storage.type.generic.nlo"},
+				"18": {"name": "storage.type.pointer.nlo"}
 			}
 		},
 
